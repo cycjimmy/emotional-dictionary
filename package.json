@@ -1,0 +1,16 @@
+{
+  "name": "emotional-dictionary",
+  "version": "1.0.0",
+  "description": "An attempt to create an emotional dictionary",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cycjimmy/emotional-dictionary.git"
+  },
+  "keywords": [],
+  "author": "cycjimmy <cycjimmy@gmail.com> (https://github.com/cycjimmy)",
+  "bugs": {
+    "url": "https://github.com/cycjimmy/emotional-dictionary/issues"
+  },
+  "homepage": "https://github.com/cycjimmy/emotional-dictionary#readme"
+}

@@ -1,0 +1,10 @@
+gensim==4.3.3
+jieba==0.42.1
+joblib==1.4.2
+numpy==1.26.4
+scikit-learn==1.5.2
+scipy==1.13.1
+smart-open==7.0.5
+threadpoolctl==3.5.0
+tqdm==4.66.5
+wrapt==1.16.0
