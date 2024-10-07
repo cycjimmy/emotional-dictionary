@@ -48,12 +48,12 @@ def convert_to_sentiment_list():
 # 1. 中文文本预处理
 def preprocess_chinese(text):
     # 中文分词
-    words = jieba.lcut(text)
+    words = jieba.cut(text, cut_all=False)
 
     # 去停用词
     words = [word for word in words if word not in stop_words]
 
-    return words
+    return words[:50]
 
 
 # 2.训练Word2Vec模型
@@ -66,7 +66,8 @@ def word2vec(data):
         window=8,
         min_count=2,
         sg=1,
-        epochs=10,
+        negative=10,
+        epochs=30,
         workers=multiprocessing.cpu_count(),
     )
 
@@ -115,40 +116,39 @@ def generate_sentiment_dictionary(word2vec_model, svm_model):
     return sentiment_dict
 
 
-if __name__ == '__main__':
-    dataList = convert_to_sentiment_list()
-    preprocessed_data = [(preprocess_chinese(text), label) for text, label in dataList]
-    word2vec(preprocessed_data)
-    time.sleep(2)
+dataList = convert_to_sentiment_list()
+preprocessed_data = [(preprocess_chinese(text), label) for text, label in dataList]
+word2vec(preprocessed_data)
+time.sleep(2)
 
-    # 读取word2vec模型
-    word2vecModel = Word2Vec.load('models/word2vec.model')
+# 读取word2vec模型
+word2vecModel = Word2Vec.load('models/word2vec.model')
 
-    time.sleep(2)
+time.sleep(2)
 
-    # 对所有中文文本进行向量化
-    X = np.array([
-        get_sentence_vector(
-            text,
-            word2vecModel,
-        ) for text, label in tqdm(preprocessed_data)
-    ])
-    y = np.array([label for text, label in preprocessed_data])
+# 对所有中文文本进行向量化
+X = np.array([
+    get_sentence_vector(
+        text,
+        word2vecModel,
+    ) for text, label in tqdm(preprocessed_data)
+])
+y = np.array([label for text, label in preprocessed_data])
 
-    time.sleep(2)
+time.sleep(2)
 
-    trainSVM(X, y)
+trainSVM(X, y)
 
-    time.sleep(2)
+time.sleep(2)
 
-    # 读取svm模型
-    svmModel = load('models/svm.joblib')
+# 读取svm模型
+svmModel = load('models/svm.joblib')
 
-    time.sleep(2)
+time.sleep(2)
 
-    # 生成情感词典
-    sentiment_dict = generate_sentiment_dictionary(word2vecModel, svmModel)
+# 生成情感词典
+sentiment_dict = generate_sentiment_dictionary(word2vecModel, svmModel)
 
-    # 保存词典
-    with open('models/sentiment_dict.json', 'w', encoding='utf-8') as f:
-        json.dump(sentiment_dict, f, ensure_ascii=False, indent=4)
+# 保存词典
+with open('models/sentiment_dict.json', 'w', encoding='utf-8') as f:
+    json.dump(sentiment_dict, f, ensure_ascii=False, indent=4)

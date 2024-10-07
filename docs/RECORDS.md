@@ -78,3 +78,37 @@ weighted avg       0.52      0.54      0.53     10504
 
 Accuracy: 54.12%
 ```
+
+
+### #4 2024/10/07
+
+* train_test_split
+  * test_size=0.3
+  * random_state=42
+* Word2Vec
+  * vector_size=100
+  * window=8
+  * min_count=2
+  * sg=1
+  * negative=10
+  * epochs=30
+  * workers=multiprocessing.cpu_count()
+* SVC
+  * C=100
+  * probability=True
+
+```text
+                precision    recall  f1-score   support
+         伤心       0.58      0.67      0.62      4217
+         害怕       0.50      0.30      0.38       209
+         开心       0.61      0.61      0.61      2966
+         恶心       0.38      0.32      0.34      1473
+         惊喜       0.24      0.11      0.15       311
+         生气       0.32      0.28      0.30      1328
+
+    accuracy                           0.53     10504
+   macro avg       0.44      0.38      0.40     10504
+weighted avg       0.51      0.53      0.52     10504
+
+Accuracy: 52.98%
+```
