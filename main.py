@@ -82,11 +82,11 @@ def get_sentence_vector(sentence, model):
 def trainSVM(X, y):
     # 划分训练集和测试集
     logging.info('SVM: Splitting data...')
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
     # 训练 SVM 分类器
     logging.info('SVM: Training SVM model...')
-    svm_model = SVC(kernel='linear')
+    svm_model = SVC(C=100, probability=True)
     svm_model.fit(X_train, y_train)
 
     # 预测测试集
