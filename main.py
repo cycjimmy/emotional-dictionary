@@ -11,7 +11,7 @@ from gensim.models import Word2Vec
 import numpy as np
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report, accuracy_score
 
 logging.basicConfig(level=logging.INFO)
 
@@ -95,6 +95,7 @@ def trainSVM(X, y):
 
     # 计算准确率
     accuracy = accuracy_score(y_test, y_pred)
+    logging.info(classification_report(y_test, y_pred))
     logging.info(f"Accuracy: {accuracy * 100:.2f}%")
 
     # 保存模型
