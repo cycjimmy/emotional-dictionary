@@ -63,8 +63,10 @@ def word2vec(data):
     model = Word2Vec(
         sentences,
         vector_size=100,
-        window=5,
-        min_count=1,
+        window=8,
+        min_count=2,
+        sg=1,
+        epochs=10,
         workers=multiprocessing.cpu_count(),
     )
 
